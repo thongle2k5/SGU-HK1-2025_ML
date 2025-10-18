@@ -1,3 +1,4 @@
+'''
 Tên_Du_An_ML/
 |
 ├── data/
@@ -24,3 +25,4 @@ Tên_Du_An_ML/
 ├── .gitignore # Danh sách các tệp/thư mục không muốn đẩy lên Git (ví dụ: data/raw, models/)
 ├── requirements.txt # Danh sách các thư viện Python cần thiết (để tái tạo môi trường)
 └── README.md # Mô tả dự án, hướng dẫn cài đặt và chạy
+'''
