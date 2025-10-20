@@ -1,4 +1,4 @@
-<prep>
+<pre>
 Challenge2/
 ├── data/
 │   ├── 01_raw/            # Dữ liệu gốc, không bao giờ chỉnh sửa file ở đây
@@ -28,4 +28,4 @@ Challenge2/
 │
 ├── requirements.txt       # Danh sách các thư viện Python cần thiết
 └── README.md              # File giới thiệu tổng quan về dự án
-</prep>
+</pre>
