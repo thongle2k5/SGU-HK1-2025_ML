@@ -1,4 +1,4 @@
-# Trí tuệ nhân tạo nâng cao
+# Nhập môn máy học
 Giảng viên: Đỗ Như Tài
 
 
