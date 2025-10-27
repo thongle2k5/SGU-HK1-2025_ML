@@ -7509,7 +7509,37 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main>
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=519c5b29">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Run nbconvert from a notebook cell using the shell. Prefix with "!" so it's executed as a shell command.</span>
+<span class="c1"># Use forward slashes to avoid backslash-escape issues on Windows paths.</span>
+<span class="o">!</span>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="w"> </span>html<span class="w"> </span><span class="s2">"C:/xampp/htdocs/ml_personalNGroup/Group/chalenge2/notebooks/02-feature-engineering.ipynb"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>[NbConvertApp] Converting notebook C:/xampp/htdocs/ml_personalNGroup/Group/chalenge2/notebooks/02-feature-engineering.ipynb to html
+[NbConvertApp] Writing 308387 bytes to C:\xampp\htdocs\ml_personalNGroup\Group\chalenge2\notebooks\02-feature-engineering.html
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=74770942">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7929,22 +7959,72 @@ memory usage: 924.0+ KB
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1f33b4e0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1f33b4e0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">cols_none</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Giả sử bạn đã xử lý missing values như sau:</span>
+<span class="n">cols_none</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">'Alley'</span><span class="p">,</span> <span class="s1">'FireplaceQu'</span><span class="p">,</span> <span class="s1">'PoolQC'</span><span class="p">,</span> <span class="s1">'Fence'</span><span class="p">,</span> <span class="s1">'MiscFeature'</span><span class="p">,</span>
     <span class="s1">'GarageType'</span><span class="p">,</span> <span class="s1">'GarageFinish'</span><span class="p">,</span> <span class="s1">'GarageQual'</span><span class="p">,</span> <span class="s1">'GarageCond'</span><span class="p">,</span>
     <span class="s1">'BsmtQual'</span><span class="p">,</span> <span class="s1">'BsmtCond'</span><span class="p">,</span> <span class="s1">'BsmtExposure'</span><span class="p">,</span> <span class="s1">'BsmtFinType1'</span><span class="p">,</span> <span class="s1">'BsmtFinType2'</span><span class="p">,</span> <span class="s1">'MasVnrType'</span>
 <span class="p">]</span>
-<span class="n">df_train</span><span class="p">[</span><span class="n">cols_none</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">cols_none</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">'None'</span><span class="p">)</span>
-<span class="n">df_test</span><span class="p">[</span><span class="n">cols_none</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">cols_none</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">'None'</span><span class="p">)</span>
+<span class="c1"># Chỉ điền giá trị thiếu cho các cột còn tồn tại</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_none</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_train</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df_train</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">'None'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_test</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df_test</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">'None'</span><span class="p">)</span>
+
+<span class="c1"># --- Ghi lại nhật ký xử lý ---</span>
+<span class="n">excel_file</span> <span class="o">=</span> <span class="s2">"../reports/featureEngineering_summary.xlsx"</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="c1"># Kết luận</span>
+<span class="n">note</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"Đã xử lý các cột có giá trị thiếu dạng None (các cột liên quan đến thông tin Garage, Basement, "</span>
+    <span class="s2">"và tường veneer). Sau khi xử lý, không còn giá trị NaN trong các cột này."</span>
+<span class="p">)</span>
+
+<span class="c1"># Tạo dataframe lưu log</span>
+<span class="n">log_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Xử lý Missing Values (fillna('None'))"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Nếu file chưa tồn tại, tạo mới</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">excel_file</span><span class="p">):</span>
+    <span class="n">log_entry</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Nếu đã có file, append thêm dòng mới</span>
+    <span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+    <span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">log_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi log xử lý vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi log xử lý vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
 </div>
 </div>
 </div>
@@ -8271,12 +8351,12 @@ memory usage: 924.0+ KB
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5a06a125">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5a06a125">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="p">[</span><span class="s1">'MasVnrArea'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">'MasVnrArea'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -8284,7 +8364,32 @@ memory usage: 924.0+ KB
 
 <span class="n">df_test</span><span class="p">[</span><span class="s1">'MasVnrArea'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s1">'MasVnrArea'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">df_test</span><span class="p">[</span><span class="s1">'GarageYrBlt'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s1">'GarageYrBlt'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># Thêm kết luận quan trọng vào log</span>
+<span class="n">important_note</span> <span class="o">=</span> <span class="s2">"Đã điền giá trị thiếu cho MasVnrArea và GarageYrBlt bằng 0. Đây là các cột số, giá trị thiếu hợp lý nhất là 0."</span>
+<span class="n">important_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Điền Missing Values bằng 0 cho MasVnrArea, GarageYrBlt"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">important_note</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">important_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi thêm kết luận quan trọng vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi thêm kết luận quan trọng vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
 </div>
 </div>
 </div>
@@ -8332,17 +8437,42 @@ Name: MasVnrArea, dtype: float64</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=71e77600">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=71e77600">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">df_test</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s1">'Electrical'</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Thêm log cho xử lý Electrical</span>
+<span class="n">note_electrical</span> <span class="o">=</span> <span class="s2">"Đã điền giá trị thiếu cho Electrical bằng giá trị mode (phổ biến nhất)."</span>
+<span class="n">log_electrical</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Điền Missing Values cho Electrical bằng mode"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_electrical</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">log_electrical</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi log xử lý Electrical vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi log xử lý Electrical vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
 </div>
 </div>
 </div>
@@ -8363,7 +8493,7 @@ Name: MasVnrArea, dtype: float64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
@@ -8392,7 +8522,7 @@ Name: MasVnrArea, dtype: float64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -8523,21 +8653,42 @@ memory usage: 924.0+ KB
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d1160e3e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d1160e3e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="p">[</span><span class="s1">'LotFrontage'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Neighborhood'</span><span class="p">)[</span><span class="s1">'LotFrontage'</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
-<span class="p">)</span>
-<span class="n">df_test</span><span class="p">[</span><span class="s1">'LotFrontage'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Neighborhood'</span><span class="p">)[</span><span class="s1">'LotFrontage'</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
-    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
-<span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Tạo kết luận cho việc xử lý LotFrontage</span>
+<span class="n">note_lotfrontage</span> <span class="o">=</span> <span class="s2">"Đã điền giá trị thiếu cho LotFrontage bằng median theo từng Neighborhood."</span>
+<span class="n">log_lotfrontage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Điền Missing Values cho LotFrontage bằng median theo Neighborhood"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_lotfrontage</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">log_lotfrontage</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi log xử lý LotFrontage vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi log xử lý LotFrontage vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
 </div>
 </div>
 </div>
@@ -8565,6 +8716,767 @@ memory usage: 924.0+ KB
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>0</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a28ed09d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="M%C3%A3-h%C3%B3a-(Encoding)-c%C3%A1c-bi%E1%BA%BFn-ph%C3%A2n-lo%E1%BA%A1i-(object)">Mã hóa (Encoding) các biến phân loại (object)<a class="anchor-link" href="#M%C3%A3-h%C3%B3a-(Encoding)-c%C3%A1c-bi%E1%BA%BFn-ph%C3%A2n-lo%E1%BA%A1i-(object)">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f82b3d76">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Kiểm tra coi các cột của tập test và tập train có trùng với nhau không</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b92b6693">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Tạo kết luận và thời gian</span>
+<span class="n">important_note</span> <span class="o">=</span> <span class="s2">"Kết luận quan trọng: Đã chuẩn hóa dữ liệu và xử lý các biến đặc trưng mới."</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="c1"># Tạo entry mới</span>
+<span class="n">important_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Ghi kết luận quan trọng"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">important_note</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Đọc log cũ và ghi thêm dòng mới</span>
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">important_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi kết luận quan trọng vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi kết luận quan trọng vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31d497c1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Các cột của 2 tập trùng nhau</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13cd4c6b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="One-hot-encoding">One hot encoding<a class="anchor-link" href="#One-hot-encoding">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a30c5a25">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Tạo kết luận và thời gian</span>
+<span class="n">note_encoding</span> <span class="o">=</span> <span class="s2">"Đã thực hiện one-hot encoding cho các biến phân loại (object) bằng pd.get_dummies."</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="c1"># Tạo entry mới</span>
+<span class="n">encoding_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"One-hot encoding với pd.get_dummies"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_encoding</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Đọc log cũ và ghi thêm dòng mới</span>
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">encoding_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi kết luận one-hot encoding vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi kết luận one-hot encoding vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c48e462d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Id</th>
+<th>MSSubClass</th>
+<th>LotFrontage</th>
+<th>LotArea</th>
+<th>OverallQual</th>
+<th>OverallCond</th>
+<th>YearBuilt</th>
+<th>YearRemodAdd</th>
+<th>MasVnrArea</th>
+<th>BsmtFinSF1</th>
+<th>...</th>
+<th>SaleType_ConLI</th>
+<th>SaleType_ConLw</th>
+<th>SaleType_New</th>
+<th>SaleType_Oth</th>
+<th>SaleType_WD</th>
+<th>SaleCondition_AdjLand</th>
+<th>SaleCondition_Alloca</th>
+<th>SaleCondition_Family</th>
+<th>SaleCondition_Normal</th>
+<th>SaleCondition_Partial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1</td>
+<td>60</td>
+<td>65.0</td>
+<td>8450</td>
+<td>7</td>
+<td>5</td>
+<td>2003</td>
+<td>2003</td>
+<td>196.0</td>
+<td>706</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2</td>
+<td>20</td>
+<td>80.0</td>
+<td>9600</td>
+<td>6</td>
+<td>8</td>
+<td>1976</td>
+<td>1976</td>
+<td>0.0</td>
+<td>978</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>60</td>
+<td>68.0</td>
+<td>11250</td>
+<td>7</td>
+<td>5</td>
+<td>2001</td>
+<td>2002</td>
+<td>162.0</td>
+<td>486</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr>
+<th>3</th>
+<td>4</td>
+<td>70</td>
+<td>60.0</td>
+<td>9550</td>
+<td>7</td>
+<td>5</td>
+<td>1915</td>
+<td>1970</td>
+<td>0.0</td>
+<td>216</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr>
+<th>4</th>
+<td>5</td>
+<td>60</td>
+<td>84.0</td>
+<td>14260</td>
+<td>8</td>
+<td>5</td>
+<td>2000</td>
+<td>2000</td>
+<td>350.0</td>
+<td>655</td>
+<td>...</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>5 rows × 261 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bf66fff7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="T%E1%BA%A1o-%C4%91%E1%BA%B7c-tr%C6%B0ng-m%E1%BB%9Bi-(Feature-Engineering)">Tạo đặc trưng mới (Feature Engineering)<a class="anchor-link" href="#T%E1%BA%A1o-%C4%91%E1%BA%B7c-tr%C6%B0ng-m%E1%BB%9Bi-(Feature-Engineering)">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a3eaa83c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>vd như tổng diện tích được cộng lại từ tầng hầm, tầng 1, tầng 2. Giá nhà (SalePrice) thường tăng mạnh theo diện tích sử dụng thực tế, chứ không chỉ từng phần riêng lẻ.</p>
+<p>Mô hình dễ hiểu hơn khi có 1 cột tổng hợp thay vì phải học mối quan hệ rời rạc giữa 3 cột.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5ab5e163">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Tạo kết luận và thời gian</span>
+<span class="n">note_feature</span> <span class="o">=</span> <span class="s2">"Đã tạo các đặc trưng mới: TotalSF, TotalBathrooms, Age cho cả train và test."</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="c1"># Tạo entry mới</span>
+<span class="n">feature_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Tạo đặc trưng mới (TotalSF, TotalBathrooms, Age)"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_feature</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Đọc log cũ và ghi thêm dòng mới</span>
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">feature_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi kết luận đặc trưng mới vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi kết luận đặc trưng mới vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6820b64e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="p">[</span><span class="s1">'TotalBathrooms'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>0    3.5
+1    2.5
+2    3.5
+3    2.0
+4    3.5
+Name: TotalBathrooms, dtype: float64</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a04fa209">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="X%E1%BB%AD-l%C3%BD-ph%C3%A2n-ph%E1%BB%91i-l%E1%BB%87ch-cho-bi%E1%BA%BFn-m%E1%BB%A5c-ti%C3%AAu-SalePrice,-l%E1%BB%87ch-ph%E1%BA%A3i">Xử lý phân phối lệch cho biến mục tiêu SalePrice, lệch phải<a class="anchor-link" href="#X%E1%BB%AD-l%C3%BD-ph%C3%A2n-ph%E1%BB%91i-l%E1%BB%87ch-cho-bi%E1%BA%BFn-m%E1%BB%A5c-ti%C3%AAu-SalePrice,-l%E1%BB%87ch-ph%E1%BA%A3i">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5eab6f97">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [38]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Tạo kết luận và thời gian</span>
+<span class="n">note_saleprice</span> <span class="o">=</span> <span class="s2">"Đã xử lý phân phối lệch phải cho biến mục tiêu SalePrice bằng log1p."</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="c1"># Tạo entry mới</span>
+<span class="n">saleprice_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Xử lý SalePrice bằng log1p"</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_saleprice</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Đọc log cũ và ghi thêm dòng mới</span>
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">saleprice_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi log xử lý SalePrice vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi log xử lý SalePrice vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=62e0c619">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Chu%E1%BA%A9n-h%C3%B3a-d%E1%BB%AF-li%E1%BB%87u">Chuẩn hóa dữ liệu<a class="anchor-link" href="#Chu%E1%BA%A9n-h%C3%B3a-d%E1%BB%AF-li%E1%BB%87u">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6c7025a4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Thêm kết luận quan trọng về chuẩn hóa dữ liệu vào file log Excel</span>
+<span class="n">note_important</span> <span class="o">=</span> <span class="s2">"Đã chuẩn hóa dữ liệu số bằng StandardScaler cho cả train và test."</span>
+<span class="n">action_important</span> <span class="o">=</span> <span class="s2">"Chuẩn hóa dữ liệu với StandardScaler"</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+
+<span class="n">important_entry</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"Thời gian"</span><span class="p">:</span> <span class="p">[</span><span class="n">now</span><span class="p">],</span>
+    <span class="s2">"Hành động"</span><span class="p">:</span> <span class="p">[</span><span class="n">action_important</span><span class="p">],</span>
+    <span class="s2">"Kết luận"</span><span class="p">:</span> <span class="p">[</span><span class="n">note_important</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">old_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">)</span>
+<span class="n">updated_log</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">old_log</span><span class="p">,</span> <span class="n">important_entry</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_log</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">excel_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"✅ Đã ghi kết luận chuẩn hóa dữ liệu vào file Excel:"</span><span class="p">,</span> <span class="n">excel_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>✅ Đã ghi kết luận chuẩn hóa dữ liệu vào file Excel: ../reports/featureEngineering_summary.xlsx
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f310da57">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Id</th>
+<th>MSSubClass</th>
+<th>LotFrontage</th>
+<th>LotArea</th>
+<th>OverallQual</th>
+<th>OverallCond</th>
+<th>YearBuilt</th>
+<th>YearRemodAdd</th>
+<th>MasVnrArea</th>
+<th>BsmtFinSF1</th>
+<th>...</th>
+<th>SaleType_Oth</th>
+<th>SaleType_WD</th>
+<th>SaleCondition_AdjLand</th>
+<th>SaleCondition_Alloca</th>
+<th>SaleCondition_Family</th>
+<th>SaleCondition_Normal</th>
+<th>SaleCondition_Partial</th>
+<th>TotalSF</th>
+<th>TotalBathrooms</th>
+<th>Age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>-1.730865</td>
+<td>0.073375</td>
+<td>-0.231877</td>
+<td>-0.207142</td>
+<td>0.651479</td>
+<td>-0.517200</td>
+<td>1.050994</td>
+<td>0.878668</td>
+<td>0.514104</td>
+<td>0.575425</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>-0.001277</td>
+<td>1.642256</td>
+<td>-1.043259</td>
+</tr>
+<tr>
+<th>1</th>
+<td>-1.728492</td>
+<td>-0.872563</td>
+<td>0.437043</td>
+<td>-0.091886</td>
+<td>-0.071836</td>
+<td>2.179628</td>
+<td>0.156734</td>
+<td>-0.429577</td>
+<td>-0.570750</td>
+<td>1.171992</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>-0.052407</td>
+<td>0.368581</td>
+<td>-0.183465</td>
+</tr>
+<tr>
+<th>2</th>
+<td>-1.726120</td>
+<td>0.073375</td>
+<td>-0.098093</td>
+<td>0.073480</td>
+<td>0.651479</td>
+<td>-0.517200</td>
+<td>0.984752</td>
+<td>0.830215</td>
+<td>0.325915</td>
+<td>0.092907</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>0.169157</td>
+<td>1.642256</td>
+<td>-0.977121</td>
+</tr>
+<tr>
+<th>3</th>
+<td>-1.723747</td>
+<td>0.309859</td>
+<td>-0.454850</td>
+<td>-0.096897</td>
+<td>0.651479</td>
+<td>-0.517200</td>
+<td>-1.863632</td>
+<td>-0.720298</td>
+<td>-0.570750</td>
+<td>-0.499274</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>-0.114493</td>
+<td>-0.268257</td>
+<td>1.800676</td>
+</tr>
+<tr>
+<th>4</th>
+<td>-1.721374</td>
+<td>0.073375</td>
+<td>0.615421</td>
+<td>0.375148</td>
+<td>1.374795</td>
+<td>-0.517200</td>
+<td>0.951632</td>
+<td>0.733308</td>
+<td>1.366489</td>
+<td>0.463568</td>
+<td>...</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>0.944631</td>
+<td>1.642256</td>
+<td>-0.944052</td>
+</tr>
+</tbody>
+</table>
+<p>5 rows × 264 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12cf6814">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="L%C6%B0u-file-csv,-m%E1%BA%A5y-c%C3%A1i-%C4%91%C3%A3-feature-engineering">Lưu file csv, mấy cái đã feature engineering<a class="anchor-link" href="#L%C6%B0u-file-csv,-m%E1%BA%A5y-c%C3%A1i-%C4%91%C3%A3-feature-engineering">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f38ca2d1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">"../data/03_processed"</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_train</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"../data/03_processed/train_clean.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_test</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"../data/03_processed/test_clean.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Dữ liệu đã sẵn sàng cho mô hình (03_processed)."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Dữ liệu đã sẵn sàng cho mô hình (03_processed).
+</pre>
 </div>
 </div>
 </div>
