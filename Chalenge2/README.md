@@ -61,7 +61,7 @@ python -m venv venv
 # hoặc
 source venv/bin/activate      # Mac/Linux
 
-2. Cài đặt các thư viện cần thiết
+Cài đặt các thư viện cần thiết
 pip install -r requirements.txt
 
 Hướng dẫn chạy (Workflow)
@@ -91,27 +91,23 @@ Mô hình cuối cùng: XGBoostRegressor
 Tham số tối ưu (tìm bằng Optuna):
 
 {
-    'n_estimators': 326,
-    'learning_rate': 0.0710,
+    'n_estimators': 795,
+    'learning_rate': 0.041781133811210534,
     'max_depth': 4,
-    'subsample': 0.9063,
-    'colsample_bytree': 0.8917,
-    'gamma': 0.0027,
-    'min_child_weight': 3
+    'subsample': 0.9004238636768309,
+    'colsample_bytree': 0.8861701514544139,
+    'gamma': 0.0007839147453102702,
+    'min_child_weight': 3,
+    'random_state': 42
 }
 
+Hiệu suất (CV RMSE): 0.1242.
+Điểm Kaggle (RMSLE): 0.1248 (xếp hạng khá tốt so với baseline).
 
-Hiệu suất (CV RMSE): 0.1255
 
-Điểm Kaggle (RMSLE): ~0.125 (xếp hạng khá tốt so với baseline)
-
-Phân tích & Nhận xét
+Phân tích & Nhận xét:
 Biến quan trọng nhất: Chất lượng tổng thể (OverallQual), diện tích sống (GrLivArea), tổng diện tích tầng hầm (TotalBsmtSF), và số chỗ đậu xe (GarageCars) là những yếu tố ảnh hưởng lớn nhất đến giá nhà.
-
 Xử lý SalePrice: Sử dụng log-transform (np.log1p) cho biến mục tiêu SalePrice là bước bắt buộc để giảm độ lệch (skewness) của dữ liệu, giúp mô hình hội tụ tốt hơn.
-
 Xử lý dữ liệu thiếu: Áp dụng các chiến lược điền giá trị thiếu (imputation) dựa trên ngữ cảnh (ví dụ: điền 'None' cho Alley, điền median của LotFrontage dựa theo Neighborhood).
-
 Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân loại (categorical) và StandardScaler cho các biến số (numerical).
-
 Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
