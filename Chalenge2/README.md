@@ -83,7 +83,7 @@ Mô hình tốt nhất sẽ được lưu trong thư mục models/ (xgboost_v1.p
 Chạy lệnh:
 python src/models/predict_model.py
 File dự đoán được tạo tại thư mục gốc với tên submission.csv
-
+```
 
 ## Kết quả sau khi chạy:
 Mô hình cuối cùng: XGBoostRegressor
@@ -105,9 +105,12 @@ Hiệu suất (CV RMSE): 0.1242.
 Điểm Kaggle (RMSLE): 0.1248 (xếp hạng khá tốt so với baseline).
 
 
-Phân tích & Nhận xét:
+## Phân tích & Nhận xét:
 Biến quan trọng nhất: Chất lượng tổng thể (OverallQual), diện tích sống (GrLivArea), tổng diện tích tầng hầm (TotalBsmtSF), và số chỗ đậu xe (GarageCars) là những yếu tố ảnh hưởng lớn nhất đến giá nhà.
+
 Xử lý SalePrice: Sử dụng log-transform (np.log1p) cho biến mục tiêu SalePrice là bước bắt buộc để giảm độ lệch (skewness) của dữ liệu, giúp mô hình hội tụ tốt hơn.
+
 Xử lý dữ liệu thiếu: Áp dụng các chiến lược điền giá trị thiếu (imputation) dựa trên ngữ cảnh (ví dụ: điền 'None' cho Alley, điền median của LotFrontage dựa theo Neighborhood).
+
 Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân loại (categorical) và StandardScaler cho các biến số (numerical).
 Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
