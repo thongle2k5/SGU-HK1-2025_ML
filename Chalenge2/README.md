@@ -49,3 +49,69 @@ Challenge2/
 ├── requirements.txt       # Danh sách các thư viện Python cần thiết
 └── README.md              # File giới thiệu tổng quan về dự án
 </pre>
+
+---
+## Hướng dẫn cài đặt
+
+### 1. Tạo môi trường ảo (tùy chọn)
+Khuyến khích dùng môi trường ảo để tránh xung đột thư viện:
+```bash
+python -m venv venv
+.\venv\Scripts\activate       # Windows
+# hoặc
+source venv/bin/activate      # Mac/Linux
+
+2. Cài đặt các thư viện cần thiết
+pip install -r requirements.txt
+
+Hướng dẫn chạy (Workflow)
+1. Chuẩn bị dữ liệu 
+Đặt file train.csv và test.csv vào thư mục:
+data/01_raw/
+
+2. Xử lý dữ liệu
+Chạy lệnh:
+python src/data/make_dataset.py
+Kết quả: dữ liệu đã xử lý được lưu vào data/03_processed/
+
+3. Huấn luyện mô hình
+Chạy lệnh:
+python src/models/train_model.py
+Mô hình tốt nhất sẽ được lưu trong thư mục models/ (xgboost_v1.pkl)
+
+4. Tạo dự đoán (submission)
+Chạy lệnh:
+python src/models/predict_model.py
+File dự đoán được tạo tại thư mục gốc với tên submission.csv
+
+
+## Kết quả sau khi chạy:
+Mô hình cuối cùng: XGBoostRegressor
+
+Tham số tối ưu (tìm bằng Optuna):
+
+{
+    'n_estimators': 326,
+    'learning_rate': 0.0710,
+    'max_depth': 4,
+    'subsample': 0.9063,
+    'colsample_bytree': 0.8917,
+    'gamma': 0.0027,
+    'min_child_weight': 3
+}
+
+
+Hiệu suất (CV RMSE): 0.1255
+
+Điểm Kaggle (RMSLE): ~0.125 (xếp hạng khá tốt so với baseline)
+
+Phân tích & Nhận xét
+Biến quan trọng nhất: Chất lượng tổng thể (OverallQual), diện tích sống (GrLivArea), tổng diện tích tầng hầm (TotalBsmtSF), và số chỗ đậu xe (GarageCars) là những yếu tố ảnh hưởng lớn nhất đến giá nhà.
+
+Xử lý SalePrice: Sử dụng log-transform (np.log1p) cho biến mục tiêu SalePrice là bước bắt buộc để giảm độ lệch (skewness) của dữ liệu, giúp mô hình hội tụ tốt hơn.
+
+Xử lý dữ liệu thiếu: Áp dụng các chiến lược điền giá trị thiếu (imputation) dựa trên ngữ cảnh (ví dụ: điền 'None' cho Alley, điền median của LotFrontage dựa theo Neighborhood).
+
+Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân loại (categorical) và StandardScaler cho các biến số (numerical).
+
+Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
