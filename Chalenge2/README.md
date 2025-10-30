@@ -102,6 +102,7 @@ Tham số tối ưu (tìm bằng Optuna):
 }
 ```
 Hiệu suất (CV RMSE): 0.1242.
+
 Điểm Kaggle (RMSLE): 0.1248 (xếp hạng khá tốt so với baseline).
 
 
@@ -115,7 +116,7 @@ Xử lý dữ liệu thiếu: Áp dụng các chiến lược điền giá trị
 Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân loại (categorical) và StandardScaler cho các biến số (numerical).
 Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
 
-```
+---
 Ngày hoàn thành: 30/10/2025
 Hoàn thành bởi: Phan Thanh Thịnh
 Công cụ: Python, Pandas, Scikit-learn, XGBoost, Optuna, Matplotlib
