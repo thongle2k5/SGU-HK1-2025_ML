@@ -118,5 +118,7 @@ Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hype
 
 ---
 Ngày hoàn thành: 30/10/2025
-Hoàn thành bởi: Phan Thanh Thịnh
+
 Công cụ: Python, Pandas, Scikit-learn, XGBoost, Optuna, Matplotlib
+
+Hoàn thành bởi: Phan Thanh Thịnh
