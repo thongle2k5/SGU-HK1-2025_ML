@@ -1,3 +1,23 @@
+# Dự đoán Giá Nhà Ames - Kaggle
+
+## Giới thiệu
+
+Dự án này nhằm **dự đoán giá bán nhà** trong thành phố Ames (Iowa, Mỹ) dựa trên các đặc trưng mô tả ngôi nhà như diện tích, số phòng, chất lượng vật liệu, khu vực, v.v.  
+Dữ liệu được lấy từ **cuộc thi "House Prices - Advanced Regression Techniques" trên Kaggle**.
+
+Mục tiêu của dự án là xây dựng một mô hình học máy có khả năng dự đoán chính xác giá nhà và đạt **điểm RMSLE thấp nhất có thể trên Kaggle**.
+
+---
+
+## Dữ liệu
+
+- **train.csv**: chứa thông tin 1460 ngôi nhà, gồm đặc trưng và giá bán `SalePrice`.
+- **test.csv**: chứa thông tin 1459 ngôi nhà (không có giá bán).
+- Nguồn dữ liệu: [https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
+
+---
+
+## Cấu trúc thư mục:
 <pre>
 Challenge2/
 ├── data/
