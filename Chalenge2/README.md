@@ -117,7 +117,7 @@ Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân lo�
 Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
 
 ---
-Ngày hoàn thành: 30/10/2025
+Ngày hoàn thành: 31/10/2025
 
 Công cụ: Python, Pandas, Scikit-learn, XGBoost, Optuna, Matplotlib
 
