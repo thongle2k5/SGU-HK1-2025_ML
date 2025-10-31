@@ -103,8 +103,8 @@ Tham số tối ưu (tìm bằng Optuna):
 ```
 Hiệu suất (CV RMSE): 0.1242.
 
-Điểm Kaggle (RMSLE): 0.1248 (xếp hạng khá tốt so với baseline).
-
+Điểm Kaggle (RMSLE): 0.12469.
+<img width="1883" height="403" alt="image" src="https://github.com/user-attachments/assets/8c817e04-52aa-4d98-999f-33c2747c029d" />
 
 ## Phân tích & Nhận xét:
 Biến quan trọng nhất: Chất lượng tổng thể (OverallQual), diện tích sống (GrLivArea), tổng diện tích tầng hầm (TotalBsmtSF), và số chỗ đậu xe (GarageCars) là những yếu tố ảnh hưởng lớn nhất đến giá nhà.
