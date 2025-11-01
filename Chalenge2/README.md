@@ -56,15 +56,11 @@ Challenge2/
 ### 1. Tạo môi trường ảo (tùy chọn)
 Khuyến khích dùng môi trường ảo để tránh xung đột thư viện:
 ```bash
-python -m venv venv
-.\venv\Scripts\activate       # Windows
-# hoặc
-source venv/bin/activate      # Mac/Linux
-
 Cài đặt các thư viện cần thiết
 pip install -r requirements.txt
 
-Hướng dẫn chạy (Workflow)
+Hướng dẫn chạy:
+
 1. Chuẩn bị dữ liệu 
 Đặt file train.csv và test.csv vào thư mục:
 data/01_raw/
