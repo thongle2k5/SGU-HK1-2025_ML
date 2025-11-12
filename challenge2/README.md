@@ -56,15 +56,11 @@ Challenge2/
 ### 1. Tạo môi trường ảo (tùy chọn)
 Khuyến khích dùng môi trường ảo để tránh xung đột thư viện:
 ```bash
-python -m venv venv
-.\venv\Scripts\activate       # Windows
-# hoặc
-source venv/bin/activate      # Mac/Linux
-
 Cài đặt các thư viện cần thiết
 pip install -r requirements.txt
 
-Hướng dẫn chạy (Workflow)
+Hướng dẫn chạy:
+
 1. Chuẩn bị dữ liệu 
 Đặt file train.csv và test.csv vào thư mục:
 data/01_raw/
@@ -103,8 +99,8 @@ Tham số tối ưu (tìm bằng Optuna):
 ```
 Hiệu suất (CV RMSE): 0.1242.
 
-Điểm Kaggle (RMSLE): 0.1248 (xếp hạng khá tốt so với baseline).
-
+Điểm Kaggle (RMSLE): 0.12469.
+<img width="1883" height="403" alt="image" src="https://github.com/user-attachments/assets/8c817e04-52aa-4d98-999f-33c2747c029d" />
 
 ## Phân tích & Nhận xét:
 Biến quan trọng nhất: Chất lượng tổng thể (OverallQual), diện tích sống (GrLivArea), tổng diện tích tầng hầm (TotalBsmtSF), và số chỗ đậu xe (GarageCars) là những yếu tố ảnh hưởng lớn nhất đến giá nhà.
@@ -117,7 +113,7 @@ Chuẩn hóa dữ liệu: Sử dụng One-hot encoding cho các biến phân lo�
 Tối ưu hóa: Sử dụng Optuna cho việc tinh chỉnh siêu tham số (hyperparameter tuning) hiệu quả hơn so với GridSearchCV/RandomizedSearchCV.
 
 ---
-Ngày hoàn thành: 30/10/2025
+Ngày hoàn thành: 31/10/2025
 
 Công cụ: Python, Pandas, Scikit-learn, XGBoost, Optuna, Matplotlib
 
