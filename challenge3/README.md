@@ -77,7 +77,7 @@ python src/models/predict_model.py
 Kết quả: File submission.csv sẽ được tạo tại thư mục gốc hoặc data/.
 ```
 
-5. Kết quả mô hình
+## 5. Kết quả mô hình
 Mô hình tốt nhất: XGBoost Classifier (Tối ưu hóa với Optuna).
 
 Metric đánh giá: F1-Macro Score (do dữ liệu mất cân bằng).
@@ -100,7 +100,8 @@ Bộ siêu tham số tối ưu (Best Hyperparameters):
     'tree_method': 'hist'
 }
 ```
-6. Phân tích & Nhận xét chiến lược
+
+## 6. Phân tích & Nhận xét
 Khám phá dữ liệu (EDA Insights)
 Lỗi dữ liệu nghiêm trọng: Cột duration bị lẫn lộn đơn vị giữa phút và mili-giây. Đã xử lý bằng cách quy đổi đồng nhất về ms.
 
@@ -126,7 +127,7 @@ Tuân thủ quy tắc Anti-Leakage: Mọi tính toán thống kê (Mean, Mode, S
 
 ---
 
-Ngày hoàn thành: 31/10/2025
+Ngày hoàn thành: 26/11/2025
 
 Công cụ: Python, Pandas, Scikit-learn, XGBoost, Optuna, Matplotlib
 
