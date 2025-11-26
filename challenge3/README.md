@@ -17,7 +17,7 @@ Mục tiêu chính là xây dựng quy trình xử lý dữ liệu chuẩn (Pipe
 - **Đặc trưng quan trọng**:
     - **Audio Features**: `danceability`, `energy`, `loudness`, `acousticness`, `instrumentalness`, `tempo`, `valence`...
     - **Metadata**: `Artist Name`, `Track Name`, `Popularity`, `duration`.
-    - Nguồn dữ liệu: [https://www.kaggle.com/competitions/shai-music-genre-classification](shai-music-genre-classification)
+    - Nguồn dữ liệu: [https://www.kaggle.com/competitions/shai-music-genre-classification](https://www.kaggle.com/competitions/shai-music-genre-classification)
 ---
 
 ## 3. Cấu trúc thư mục
