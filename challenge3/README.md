@@ -52,10 +52,10 @@ Music_Genre_Classification/
 ---
 
 ## 4. Hướng dẫn cài đặt & Chạy
-
-### Bước 1: Cài đặt môi trường
-Cài đặt các thư viện cần thiết (khuyến khích dùng môi trường ảo):
+ 
 ```bash
+Bước 1: Cài đặt môi trường
+Cài đặt các thư viện cần thiết (khuyến khích dùng môi trường ảo):
 pip install -r requirements.txt 
 
 Bước 2: Chuẩn bị dữ liệu
@@ -126,6 +126,8 @@ Sử dụng Optuna (Bayesian Optimization) để tìm kiếm siêu tham số hi�
 Tuân thủ quy tắc Anti-Leakage: Mọi tính toán thống kê (Mean, Mode, Scaler Fit) đều thực hiện trên tập Train và áp dụng sang tập Test.
 
 ---
+
+
 
 Ngày hoàn thành: 26/11/2025
 
