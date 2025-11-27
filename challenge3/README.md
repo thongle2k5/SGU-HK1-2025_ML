@@ -1,4 +1,4 @@
-# Dự đoán Thể loại Nhạc (Music Genre Classification) - Kaggle Challenge
+# Dự đoán Thể loại Nhạc (Music Genre Classification) - Kaggle
 
 
 
@@ -23,7 +23,7 @@ Mục tiêu chính là xây dựng quy trình xử lý dữ liệu chuẩn (Pipe
 ## 3. Cấu trúc thư mục
 
 <pre>
-Music_Genre_Classification/
+challenge3/
 ├── data/
 │   ├── 01_raw/            # Dữ liệu gốc (train.csv, test.csv) - KHÔNG CHỈNH SỬA
 │   ├── 02_processed/      # Dữ liệu sạch sau khi Feature Engineering (train_clean.csv...)
