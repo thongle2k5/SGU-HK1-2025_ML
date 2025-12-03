@@ -17,11 +17,11 @@ Chào mừng đến với repository của **Nhóm 7**. Đây là nơi lưu tr�
 
 Repository này được tổ chức theo từng bài Lab và các thử thách (Challenge) của môn học:
 
-### Các Dự án Chính (Challenges)
+### Các dự án chính bao gồm poster, slide, paper (Challenges). 
 
 | Thư mục | Tên dự án | Mô tả & Công nghệ | Trạng thái |
 |:---|:---|:---|:---:|
-| **[`challenge1/`](./challenge1)** | **Phân loại SVM** | Ứng dụng thuật toán Support Vector Machine (SVM) để phân loại dữ liệu. | Đã hoàn thành |
+| **[`challenge1/`](./challenge1)** | **Titanic Disaster** | Ứng dụng thuật toán Random Forest để phân loại dữ liệu. | Đã hoàn thành |
 | **[`challenge2/`](./challenge2)** | **House Price Prediction** | Dự đoán giá nhà (Regression).  <br> *Công nghệ: XGBoost, Optuna, Feature Engineering nâng cao.*  | Đã hoàn thành |
 | **[`challenge3/`](./challenge3)** | **Music Genre Classification** | Phân loại thể loại nhạc (Multi-class Classification). <br> *Công nghệ: XGBoost, Optuna, Feature Engineering nâng cao.* | Đã hoàn thành |
 
