@@ -58,7 +58,7 @@ git clone [https://github.com/username/ten-repo.git](https://github.com/username
 # Di chuyển vào thư mục
 cd ten-repo
 
-# Cài đặt thư viện (nếu có file requirements.txt ở từng challenge)
+# Cài đặt thư viện (file requirements.txt ở từng challenge)
 pip install -r requirements.txt
 ```
 ## Ghi chú 
