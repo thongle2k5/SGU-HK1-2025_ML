@@ -53,7 +53,7 @@ Dự án sử dụng ngôn ngữ **Python** và các thư viện Data Science ph
 
 ```bash
 # Clone repository
-git clone [https://github.com/username/ten-repo.git](https://github.com/username/ten-repo-cua-ban.git)
+git clone [https://github.com/username/ten-repo.git](https://github.com/username/ten-repo.git)
 
 # Di chuyển vào thư mục
 cd ten-repo
