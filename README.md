@@ -60,3 +60,9 @@ cd ten-repo
 
 # Cài đặt thư viện (nếu có file requirements.txt ở từng challenge)
 pip install -r requirements.txt
+```
+## Ghi chú 
+- Các bài tập được sắp xếp theo tiến độ thời gian của môn học.
+- Challenge 3 là dự án mới nhất với quy trình End-to-End hoàn chỉnh (từ EDA đến Modeling và Deployment script).
+---
+Cập nhật lần cuối: Tháng 11/2025
