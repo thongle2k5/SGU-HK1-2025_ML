@@ -1,6 +1,6 @@
 # Nhập môn máy học (Introduction to Machine Learning)
 
-Chào mừng đến với repository chính thức của **Nhóm 7**. Đây là nơi lưu trữ toàn bộ mã nguồn, báo cáo thực hành và các dự án (Challenges) được thực hiện trong môn học **Nhập môn Máy học**, dưới sự hướng dẫn của **Giảng viên Đỗ Như Tài**.
+Chào mừng đến với repository của **Nhóm 7**. Đây là nơi lưu trữ toàn bộ mã nguồn, báo cáo thực hành và các dự án (Challenges) được thực hiện trong môn học **Nhập môn Máy học**, dưới sự hướng dẫn của **Giảng viên Đỗ Như Tài**.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-green)
