@@ -101,6 +101,8 @@ Bộ siêu tham số tối ưu (Best Hyperparameters):
 }
 ```
 Điểm Kaggle: 
+
+
 <img width="1947" height="293" alt="Screenshot 2025-11-25 003743" src="https://github.com/user-attachments/assets/1af28f4e-a287-4473-8c8e-71339171d1eb" />
 
 
