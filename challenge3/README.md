@@ -85,7 +85,7 @@ Metric đánh giá: F1-Macro Score (do dữ liệu mất cân bằng).
 Validation F1-Macro: ~0.47.
 
 Bộ siêu tham số tối ưu (Best Hyperparameters):
-```
+```python
 {
     'n_estimators': 947,
     'learning_rate': 0.03247,
