@@ -85,7 +85,7 @@ Metric đánh giá: F1-Macro Score (do dữ liệu mất cân bằng).
 Validation F1-Macro: ~0.47.
 
 Bộ siêu tham số tối ưu (Best Hyperparameters):
-```
+```python
 {
     'n_estimators': 947,
     'learning_rate': 0.03247,
@@ -100,6 +100,12 @@ Bộ siêu tham số tối ưu (Best Hyperparameters):
     'tree_method': 'hist'
 }
 ```
+Điểm Kaggle: 
+
+
+<img width="1947" height="293" alt="Screenshot 2025-11-25 003743" src="https://github.com/user-attachments/assets/1af28f4e-a287-4473-8c8e-71339171d1eb" />
+
+
 
 ## 6. Phân tích & Nhận xét
 Khám phá dữ liệu (EDA Insights)
